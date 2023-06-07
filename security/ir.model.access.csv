@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cfr_territory,access.cfr.territory,cfr.model_cfr_territory,base.group_user,1,1,1,1
+access_cfr_territory_admin,access.cfr.territory.admin,cfr.model_cfr_territory,base.group_system,1,1,1,1
+access_cfr_shipvia,access.cfr.shipvia,cfr.model_cfr_shipvia,base.group_user,1,1,1,1
+access_cfr_shipvia_admin,access.cfr.shipvia.admin,cfr.model_cfr_shipvia,base.group_system,1,1,1,1
+access_cfr_terms,access.cfr.terms,cfr.model_cfr_terms,base.group_user,1,1,1,1
+access_cfr_terms_admin,access.cfr.terms.admin,cfr.model_cfr_terms,base.group_system,1,1,1,1
+access_cfr_fob,access.cfr.fob,cfr.model_cfr_fob,base.group_user,1,0,0,0
+access_cfr_fob_admin,access.cfr.fob.admin,cfr.model_cfr_fob,base.group_system,1,1,1,1

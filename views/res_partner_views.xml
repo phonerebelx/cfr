@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+
+        <record id="view_partner_form_inherit_for_cfr_test" model="ir.ui.view">
+            <field name="name">view.partner.form.cfr</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//div[@class='o_address_format']/field[@name='street2']" position="after">
+                    <field name="street3" placeholder="Street 3..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                </xpath>
+
+
+                <xpath expr="//div[@name='div_address']/field[@name='street2']" position="after">
+                    <field name="street3" placeholder="Street 3..." class="o_address_street"/>
+                </xpath>
+
+
+                
+               
+
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="fax_num" widget="phone"/>
+                </xpath>
+
+            
+                <field name="vat" position="after">
+<!--                    <field name="same_bill_address"/>-->
+                    <field name="tax_ids" widget="many2many_tags"/>
+                    
+
+                    
+                </field>
+                <field name="vat" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="function" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="website" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="title" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="category_id" position="after">
+                    <field name="user_id" domain="[('share', '=', False)]"/>
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"
+                           attrs="{'readonly': [('parent_id', '!=', False)]}" force_save="1"/>
+                </field>
+                <xpath expr="//page[@name='internal_notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('company_type', '=', 'person')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tax_ids']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('company_type', '=', 'person')]}</attribute>
+                </xpath>
+
+<!--                <xpath expr="//field[@name='same_bill_address']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible': [('company_type', '=', 'person')]}</attribute>-->
+<!--                </xpath>-->
+
+                
+                <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//span[@name='address_name']" position="before">
+                   
+                       <field name="acronym"/>
+                    <field name="business_as"/>
+                    <field name="customer_type"/>
+                    <field name="contact_type" invisible="1"/>
+
+                    
+                   
+                </xpath>
+
+
+                
+                <xpath expr="//notebook" position="inside">
+                    <page string="CFR EPICOR Sync" attrs="{'invisible': [('company_type', '=', 'person')]}">
+                        <group>
+                            <group>
+                                <field name="customer_id"/>
+                                <field name="customer_num"/>
+                                <field name="group_code"/>
+                                <field name="est_date"/>
+                                <field name="tax_exempt"/>
+                                <field name="one_inv_per_ps" invisible="1"/>
+                                <field name="credit_include_orders"/>
+                                <field name="edi_code"/>
+                                <field name="ep_web_customer"/>
+                                
+                                <field name="ep_reservation_priority"/>
+                                <field name="ep_shipping_qualifier"/>
+                                <field name="ep_ic_trader"/>
+                                <field name="credit_limit" readonly="1"/>
+                                <field name="credit_hold"/>
+                                <field name="credit_hold_date" invisible="1"/>
+                                <field name="credit_clear_user_id" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}" invisible="1"/>
+                                <field name="credit_clear_date" invisible="1"/>
+
+                                
+                                <field name="credit_review_date" invisible="1"/>
+                                <field name="cust_url" invisible="1"/>
+                                <field name="ship_to_terr_id" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}" invisible="1"/>
+                                
+                                <field name="preferred_bank"/>
+                                
+                                <field name="ep_currency_code"/>
+                                <field name="ep_Country_num"/>
+                                <field name="ep_eori"/>
+                                <field name="ep_supplier_id" invisible="1"/>
+                                <field name="ep_valid_player" invisible="1"/>
+                                <field name="ep_valid_sold_to" invisible="1"/>
+                                <field name="ep_valid_ship_to" invisible="1"/>
+                                <field name="ep_allow_onetime_ship_to"/>
+                                <field name="ep_allow_shipto_third_party"/>
+                                <field name="ep_no_contact" invisible="1"/>
+                                <field name="ep_global_lock" invisible="1"/>
+                                <field name="ep_check_duplicate_PO" invisible="1"/>
+                                <field name="ep_globle" invisible="1"/>
+                                <field name="ep_central_collection" invisible="1"/>
+
+                                <field name="ep_business_model" invisible="1"/>
+                                <field name="ep_available_restrictions" invisible="1"/>
+                                <field name="ep_comments"/>
+                                
+                            </group>
+                            <group>
+                                <field name="bt_name"/>
+                                <!-- attrs="{'readonly': [('same_bill_address', '=', True)]}" -->
+                                <field name="bt_address1" readonly="1" force_save="1" />
+                                <field name="bt_address2" readonly="1" force_save="1" />
+                                <field name="bt_address3" readonly="1" force_save="1" />
+                                <field name="bt_city"      readonly="1" force_save="1" />
+                                <field name="bt_state" readonly="1" force_save="1" />
+                                <field name="bt_zip" readonly="1" force_save="1"  />
+                                <field name="bt_country" readonly="1" force_save="1" />
+                                <field name="bt_country_num" readonly="1"/>
+                                <field name="bt_phone_num" readonly="1"/>
+                                <field name="bt_fax_num" readonly="1"/>
+                                <field name="bt_formate_str" invisible="1"/>
+                                <field name="ep_cust_pi_limit" invisible="1"/>
+                                <field name="ff_id"  readonly="1"/>
+                                <field name="ff_name"  readonly="1"/>
+                                <field name="ff_address1" readonly="1"/>
+                                <field name="ff_address2" readonly="1"/>
+                                <field name="ff_address3" readonly="1"/>
+                                <field name="ff_city"  readonly="1"/>
+                                <field name="ff_state"  readonly="1"/>
+                                <field name="ff_country"  readonly="1"/>
+                                <field name="ff_country_num"  readonly="1"/>
+                                <field name="ff_phone_num"  readonly="1"/>
+
+                                <field name="ep_number_of_employee" invisible="1"/>
+
+
+                                <field name="ep_exclude_from_address_validation" invisible="1"/>
+                                <field name="ep_territory_locked" invisible="1"/>
+
+                                <field name="ep_quote_markup" invisible="1"/>
+                                <field name="ep_language" invisible="1"/>
+                                <field name="ep_supplier_code" invisible="1"/>
+                                <field name="ep_save_ots_as" invisible="1"/>
+                                <field name="ep_acknowledgment" invisible="1"/>
+                                <field name="ep_statments" invisible="1"/>
+                                <field name="ep_labels" invisible="1"/>
+                                
+
+                            </group>
+                        </group>
+                    </page>
+                    <page string="CFR Sales Fields " >
+                        <group>
+
+                            <group attrs="{'invisible': [('company_type', '=', 'person')]}">
+                            <field name="user_id" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="company_id" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="ship_to_num"/>
+                            
+                            <field name="terms_code" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            
+                            </group>
+                            <group>
+                            <field name="territory_id" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="ship_via_code" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="default_fob" options="{'no_create': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            </group>
+
+                        </group>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="view_header_form_inherit_for_cfr" model="ir.ui.view">
+            <field name="name">view_header_form_inherit_for_cfr</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                <field name="fax_num" widget="phone"/>
+                    <field name="ep_inactive" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_partner_form_inherit_for_cfr" model="ir.ui.view">
+            <field name="name">view_account_partner_form_inherit_for_cfr</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="sms.res_partner_view_form" model="ir.ui.view">
+            <field name="name">view_sms_partner_form_inherit_for_cfr</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mobile']" position="after">
+                    <field name="phone_sanitized" groups="base.group_no_one" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="replace">
+                    <field name="phone_blacklisted" invisible="1"/>
+                    <field name="mobile_blacklisted" invisible="1"/>
+                    <label for="phone" class="oe_inline"/>
+                    <div class="o_row o_row_readonly">
+                        <button name="phone_action_blacklist_remove" class="fa fa-ban text-danger"
+                                title="This phone number is blacklisted for SMS Marketing. Click to unblacklist."
+                                type="object" context="{'default_phone': phone}" groups="base.group_user"
+                                attrs="{'invisible': [('phone_blacklisted', '=', False)]}"/>
+                        <field name="phone" widget="phone"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        
+
+    </data>
+</odoo>

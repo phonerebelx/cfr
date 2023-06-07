@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_pricelist_item_tree_inherit">
+            <field name="name">product.pricelist.item.tree.inherit</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='item_ids']/tree" position="attributes">
+                    <attribute name="delete">1</attribute>
+                    <attribute name="create">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cfr_product_pricelist_item_view_search">
+            <field name="name">product.pricelist.item.search</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="arch" type="xml">
+                <search string="Products Price Rules Search">
+                    <field name="product_tmpl_id"/>
+                    <field name="product_id" string="Product Variant"/>
+                    <field name="pricelist_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="currency_id" groups="base.group_multi_currency"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <filter string="Start Date" name="price_list_start_date" date="price_list_start_date"/>
+                    <filter string="End Date" name="price_list_end_date" date="price_list_end_date"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Product" name="groupby_product" domain="[]"
+                                context="{'group_by': 'product_tmpl_id'}"/>
+                        <filter string="Variant"
+                                name="groupby_product_variant"
+                                context="{'group_by': 'product_id'}"/>
+                        <filter string="Pricelist"
+                                name="groupby_vendor"
+                                domain="[]"
+                                context="{'group_by': 'pricelist_id'}"
+                                groups="product.group_product_pricelist"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="cfr_product_pricelist_item_tree_view_from_product" model="ir.ui.view">
+            <!-- Access and edit price rules from a given product/product variant -->
+            <field name="name">product.pricelist.item.tree</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="Pricelist Rules">
+                    <field name="product_tmpl_id"/>
+                    <field name="product_id"/>
+                    <field name="pricelist_id" string="Pricelist" options="{'no_create_edit':1, 'no_open': 1}"/>
+                    <field name="price_list_start_date"/>
+                    <field name="price_list_end_date"/>
+                    <field name="fixed_price" string="Price"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="cfr_product_pricelist_item_action" model="ir.actions.act_window">
+            <field name="name">Price Rules</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pricelist.item</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="cfr_product_pricelist_item_view_search"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('cfr_product_pricelist_item_tree_view_from_product')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('product.product_pricelist_item_form_view')})]"/>
+        </record>
+
+        <menuitem id="pricelist_price_rule_menu" name="Price List Entries" action="cfr_product_pricelist_item_action"
+                  parent="sale.product_menu_catalog" sequence="4"/>
+    </data>
+</odoo>

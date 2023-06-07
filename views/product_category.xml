@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_Categ_tree">
+            <field name="name">product.categ.tree.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="arch" type="xml">
+            
+                <xpath expr="//field[@name='display_name']" position="before">
+                    <field name="id"/>
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_Categ_form">
+            <field name="name">product.categ.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+            
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="id"/>
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_product_tree_inherit" model="ir.ui.view">
+            <field name="name">product.product.tree.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <!-- Modify the default order to 'id' -->
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">default_code desc NULLS FIRST</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_template_tree_inherit" model="ir.ui.view">
+            <field name="name">product.template.tree.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <!-- Modify the default order to 'id' -->
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">default_code desc NULLS FIRST</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

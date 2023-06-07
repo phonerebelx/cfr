@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="view_crm_form_inherit_for_cfr" model="ir.ui.view">
+            <field name="name">view_crm_form_inherit_for_cfr</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="contact_type"/>
+                </field>
+                <xpath expr="//group[@name='opportunity_partner']/label" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']/label[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']/div" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']/div[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="attributes">
+                    <attribute name="string">End User Name</attribute>
+                </xpath>
+                <field name="partner_phone_update" position="after">
+                    <field name="end_user_location" style="margin-bottom:45px !important;"/>
+                    <field name="cfr_po_date"/>
+                    <field name="cfr_ship_date"/>
+                </field>
+                <xpath expr="//group[4]" position="inside">
+                    <field name="current_status_and_action_to_win"/>
+                </xpath>
+                <xpath expr="//h2" position="inside">
+                    <div class="col" attrs="{'invisible': [('type', '=', 'lead')]}">
+                        <label for="probability_of_project_happening" class="oe_edit_only"/>
+                        <div class="o_row">
+                            <field name="probability_of_project_happening" class="oe_inline"/>
+                            <span class="oe_grey"> %</span>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_equipment_view_kanban_inherit_cfr" model="ir.ui.view">
+            <field name="name">hr_equipment_view_kanban_inherit_cfr</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_equipment_view_form_inherit_cfr" model="ir.ui.view">
+            <field name="name">hr_equipment_view_form_inherit_cfr</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_equipment_view_list_inherit_cfr" model="ir.ui.view">
+            <field name="name">hr_equipment_view_list_inherit_cfr</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

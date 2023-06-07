@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Africa -->
+        <record model="cfr.territory" id="cfr_territory_africa">
+            <field name="name">Africa</field>
+            <field name="code">Africa</field>
+        </record>
+        <!-- Asia -->
+        <record model="cfr.territory" id="cfr_territory_asia">
+            <field name="name">Asia</field>
+            <field name="code">Asia</field>
+        </record>
+        <!-- Central/South America -->
+        <record model="cfr.territory" id="cfr_territory_cen_soam">
+            <field name="name">Central/South America</field>
+            <field name="code">Cen/SoAm</field>
+        </record>
+        <!-- Europe -->
+        <record model="cfr.territory" id="cfr_territory_europe">
+            <field name="name">Europe</field>
+            <field name="code">Europe</field>
+        </record>
+        <!-- Worldwide -->
+        <record model="cfr.territory" id="cfr_territory_global">
+            <field name="name">Worldwide</field>
+            <field name="code">GLOBAL</field>
+        </record>
+        <!-- Middle East -->
+        <record model="cfr.territory" id="cfr_territory_me">
+            <field name="name">Middle East</field>
+            <field name="code">ME</field>
+        </record>
+        <!-- North America -->
+        <record model="cfr.territory" id="cfr_territory_na">
+            <field name="name">North America</field>
+            <field name="code">NA</field>
+        </record>
+        <!-- Russia/CIS -->
+        <record model="cfr.territory" id="cfr_territory_russ_cis">
+            <field name="name">Russia/CIS</field>
+            <field name="code">Russ/CIS</field>
+        </record>
+    </data>
+
+    <data noupdate="0">
+            <!-- Create cfr.shipvia records -->
+            <record model="cfr.shipvia" id="cfr_shipvia_air_2nd_day">
+            <field name="name">Air - 2nd Day</field>
+            <field name="code">1</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_3_day_select">
+            <field name="name">Air - 3 Day Select</field>
+            <field name="code">2</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_expedited">
+            <field name="name">Air - Expedited</field>
+            <field name="code">3</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_express_plus">
+            <field name="name">Air - Express Plus</field>
+            <field name="code">4</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_intl_expedited">
+            <field name="name">Air - Intl Expedited</field>
+            <field name="code">5</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_intl_small_parcel">
+            <field name="name">Air - Intl Small Parcel</field>
+            <field name="code">6</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_intl_standard">
+            <field name="name">Air - Intl Standard</field>
+            <field name="code">7</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_next_day_air">
+            <field name="name">Air - Next Day Air</field>
+            <field name="code">8</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_next_day_air_early_am">
+            <field name="name">Air - Next Day Air Early AM</field>
+            <field name="code">9</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_next_day_air_saver">
+            <field name="name">Air - Next Day Air Saver</field>
+            <field name="code">10</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_saturday_delivery">
+            <field name="name">Air - Saturday Delivery</field>
+            <field name="code">11</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_scs">
+            <field name="name">Air - SCS</field>
+            <field name="code">12</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_scs_am_service">
+            <field name="name">Air - SCS AM Service</field>
+            <field name="code">13</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_scs_economy">
+            <field name="name">Air - SCS Economy</field>
+            <field name="code">14</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_air_standard">
+            <field name="name">Air - Standard</field>
+            <field name="code">15</field>
+            </record>
+            <record model="cfr.shipvia" id="shipvia_customer_pick_up">
+            <field name="name">Customer Pick Up</field>
+            <field name="code">16</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_first_overnight">
+            <field name="name">First Overnight</field>
+            <field name="code">17</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_fedex_grnd_cfr_acct_212405230">
+            <field name="name">Fed Ex Grnd CFR Acct 212405230</field>
+            <field name="code">18</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_ltl_ground">
+            <field name="name">LTL - Ground</field>
+            <field name="code">19</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_ltl_priority">
+            <field name="name">LTL - Priority</field>
+            <field name="code">20</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_ltl_standard">
+            <field name="name">LTL - Standard</field>
+            <field name="code">21</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_ocean">
+            <field name="name">Ocean</field>
+            <field name="code">22</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_parcel_ground">
+            <field name="name">Parcel - Ground</field>
+            <field name="code">23</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_parcel_standard">
+            <field name="name">Parcel - Standard</field>
+            <field name="code">24</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_standard_overnight">
+            <field name="name">Standard Overnight</field>
+            <field name="code">25</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_tl_expedited_ground">
+            <field name="name">TL - Expedited Ground</field>
+            <field name="code">26</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_tl_ground">
+            <field name="name">TL - Ground</field>
+            <field name="code">27</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_tl_standard">
+            <field name="name">TL - Standard</field>
+            <field name="code">28</field>
+            </record>
+
+            <record model="cfr.shipvia" id="shipvia_best_way">
+            <field name="name">Best Way</field>
+            <field name="code">BW</field>
+            </record>
+            <record id="shipvia_cfrengines" model="cfr.shipvia">
+            <field name="name">3PL- cfrengines@chrobinson.com</field>
+            <field name="code">CHRO</field>
+            </record>
+            <record id="shipvia_do_not_use" model="cfr.shipvia">
+            <field name="name">z - DO NOT USE</field>
+            <field name="code">GCH</field>
+            </record>
+            <record id="shipvia_ground_fedex" model="cfr.shipvia">
+            <field name="name">Ground Fed Ex</field>
+            <field name="code">GFX</field>
+            </record>
+            <record id="shipvia_ground_tax_airfreight" model="cfr.shipvia">
+            <field name="name">Ground Tax Airfreight Inc</field>
+            <field name="code">GTAX</field>
+            </record>
+            <record id="shipvia_ground_ups" model="cfr.shipvia">
+            <field name="name">Ground UPS</field>
+            <field name="code">GUPS</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_ic">
+            <field name="name">Intercompany</field>
+            <field name="code">IC</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_othe">
+            <field name="name">Other</field>
+            <field name="code">OTHE</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_pp-b">
+            <field name="name">Prepay &amp; Add - Best Way</field>
+            <field name="code">PP-B</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_pp-g">
+            <field name="name">Prepay &amp; Add - Ground</field>
+            <field name="code">PP-G</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_pp-o">
+            <field name="name">Prepay &amp; Add - Overnight</field>
+            <field name="code">PP-O</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_serv">
+            <field name="name">Service Performed</field>
+            <field name="code">SERV</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_supp">
+            <field name="name">Supplier Transportation</field>
+            <field name="code">SUPP</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_ups">
+            <field name="name">UPS Ground - CFR Acct Y63493</field>
+            <field name="code">UPS</field>
+            </record>
+
+            <record model="cfr.shipvia" id="cfr_shipvia_upsr">
+            <field name="name">UPS Red - CFR Acct Y63493</field>
+            <field name="code">UPSR</field>
+            </record>
+
+    </data>
+
+
+    <data noupdate="0">
+    <record model="cfr.terms" id="cfr_terms_1">
+      <field name="name">1.5% 10 Days Net 30 Days</field>
+      <field name="code">1.5D</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_2">
+      <field name="name">1.5% 15 Days Net 60 Days</field>
+      <field name="code">1.5I</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_3">
+      <field name="name">Cash Against Documents</field>
+      <field name="code">CAD</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_4">
+      <field name="name">Cash in Advance</field>
+      <field name="code">CIA</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_5">
+      <field name="name">Cash in Advance - 2% Discount</field>
+      <field name="code">CIA2</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_6">
+      <field name="name">Due on Receipt</field>
+      <field name="code">COD</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_7">
+      <field name="name">Intercompany</field>
+      <field name="code">IC</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_8">
+      <field name="name">Letter of Credit</field>
+      <field name="code">LOC</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_9">
+      <field name="name">Net 10 Days</field>
+      <field name="code">N10</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_10">
+      <field name="name">Net 20 Days</field>
+      <field name="code">N20</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_11">
+      <field name="name">Net 30 Days</field>
+      <field name="code">N30</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_12">
+      <field name="name">Net 45 Days</field>
+      <field name="code">N45</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_13">
+      <field name="name">Net 60 Days</field>
+      <field name="code">N60</field>
+    </record>
+    <record model="cfr.terms" id="cfr_terms_14">
+      <field name="name">Net 90 Days</field>
+      <field name="code">N90</field>
+    </record>
+  </data>
+
+
+<data noupdate="0">
+  <record model="cfr.fob" id="fob_1">
+    <field name="name">CFR-Cost and Freight</field>
+    <field name="code">CFR</field>
+</record>
+<record model="cfr.fob" id="fob_2">
+    <field name="name">CIF-Cost, Insurance &amp; Freight</field>
+    <field name="code">CIF</field>
+</record>
+<record model="cfr.fob" id="fob_3">
+    <field name="name">CIP-Carriage &amp; Ins. Paid To</field>
+    <field name="code">CIP</field>
+</record>
+<record model="cfr.fob" id="fob_4">
+    <field name="name">CPT-Carriage Paid To</field>
+    <field name="code">CPT</field>
+</record>
+<record model="cfr.fob" id="fob_5">
+    <field name="name">DAP - Destination at Point</field>
+    <field name="code">DAP</field>
+</record>
+<record model="cfr.fob" id="fob_6">
+    <field name="name">DDP - Delivered Duty Paid</field>
+    <field name="code">DDP</field>
+</record>
+<record model="cfr.fob" id="fob_7">
+    <field name="name">EXW-Ex Works</field>
+    <field name="code">EXW</field>
+</record>
+<record model="cfr.fob" id="fob_8">
+    <field name="name">FCA-Free Carrier</field>
+    <field name="code">FCA</field>
+</record>
+<record model="cfr.fob" id="fob_9">
+    <field name="name">FOB - Destination Point</field>
+    <field name="code">FOBD</field>
+</record>
+<record model="cfr.fob" id="fob_10">
+    <field name="name">FOB - Shipping Point</field>
+    <field name="code">FOBS</field>
+</record>
+</data>
+
+
+<data noupdate="0">
+    <record id="product_category_1" model="product.category">
+      <field name="code">BILLONLY</field>
+      <field name="name">Bill Only</field>
+    </record>
+    <record id="product_category_2" model="product.category">
+      <field name="code">CRNKCSE</field>
+      <field name="name">CC,Shafts,FW,Gears,Slv,Oil</field>
+    </record>
+    <record id="product_category_3" model="product.category">
+      <field name="code">FUELDELV</field>
+      <field name="name">Carb,Fuel Pump,Fuel Tank</field>
+    </record>
+    <record id="product_category_4" model="product.category">
+      <field name="code">COMP</field>
+      <field name="name">ConRod/Pistons/Cylinders</field>
+    </record>
+    <record id="product_category_5" model="product.category">
+      <field name="code">CONSUME</field>
+      <field name="name">Consumables</field>
+    </record>
+    <record id="product_category_6" model="product.category">
+      <field name="code">COOL</field>
+      <field name="name">Cooling</field>
+    </record>
+    <record id="product_category_7" model="product.category">
+      <field name="code">ELECEQ</field>
+      <field name="name">El Eq,Motors,Heaters,Ign</field>
+    </record>
+    <record id="product_category_8" model="product.category">
+      <field name="code">EXHST</field>
+      <field name="name">Exhaust</field>
+    </record>
+    <record id="product_category_9" model="product.category">
+      <field name="code">FTVLVHOS</field>
+      <field name="name">Fittings,Valves,Hoses</field>
+    </record>
+    <record id="product_category_10" model="product.category">
+      <field name="code">FIT</field>
+      <field name="name">Fuel Ignition Test Comp</field>
+    </record>
+    <record id="product_category_11" model="product.category">
+      <field name="code">HDW</field>
+      <field name="name">Hardware</field>
+    </record>
+    <record id="product_category_12" model="product.category">
+      <field name="code">INTAKE</field>
+      <field name="name">Ice Tower,Duct,Inlet,Air Heat</field>
+    </record>
+    <record id="product_category_13" model="product.category">
+      <field name="code">OBSOLETE</field>
+      <field name="name">Inactive Parts</field>
+    </record>
+    <record id="product_category_14" model="product.category">
+      <field name="code">KIT</field>
+      <field name="name">Kits</field>
+    </record>
+    <record id="product_category_15" model="product.category">
+      <field name="code">LEGACY</field>
+      <field name="name">LEGACY only parts</field>
+    </record>
+    <record id="product_category_16" model="product.category">
+      <field name="code">MISC</field>
+      <field name="name">Miscellaneous</field>
+    </record>
+    <record id="product_category_17" model="product.category">
+      <field name="code">OTHER</field>
+      <field name="name">Phantoms,Placeholders</field>
+    </record>
+    <record id="product_category_18" model="product.category">
+      <field name="code">Promo</field>
+      <field name="name">Promotional</field>
+    </record>
+    <record id="product_category_19" model="product.category">
+      <field name="code">FUELS</field>
+      <field name="name">Rating Reference Fuels</field>
+    </record>
+    <record id="product_category_20" model="product.category">
+      <field name="code">REMAN</field>
+      <field name="name">Remanufactured Parts &amp; Assy</field>
+    </record>
+    <record id="product_category_21" model="product.category">
+      <field name="code">VALVTRN</field>
+      <field name="name">Rockers,Lifter,PR,Vlvs,Guides</field>
+    </record>
+    <record id="product_category_22" model="product.category">
+      <field name="code">SFTY</field>
+      <field name="name">Safety</field>
+    </record>
+    <record id="product_category_23" model="product.category">
+      <field name="code">SVCLABOR</field>
+      <field name="name">Service Labor</field>
+    </record>
+    <record id="product_category_24" model="product.category">
+      <field name="code">SERVICE</field>
+      <field name="name">Service Parts</field>
+    </record>
+    <record id="product_category_25" model="product.category">
+      <field name="code">STUDENT</field>
+      <field name="name">Student</field>
+    </record>
+    <record id="product_category_26" model="product.category">
+      <field name="code">TECHPUBS</field>
+      <field name="name">Technical Publications</field>
+    </record>
+    <record id="product_category_27" model="product.category">
+      <field name="code">TOOL</field>
+      <field name="name">Tools</field>
+    </record>
+    <record id="product_category_28" model="product.category">
+      <field name="code">UNITB</field>
+      <field name="name">Unit Base</field>
+    </record>
+    <record id="product_category_29" model="product.category">
+      <field name="code">AFILT</field>
+      <field name="name">z-Air Filter</field>
+    </record>
+    <record id="product_category_30" model="product.category">
+      <field name="code">ASP</field>
+      <field name="name">z-Assembled Service Parts</field>
+    </record>
+    <record id="product_category_31" model="product.category">
+      <field name="code">BLTLHOS</field>
+      <field name="name">z-Belts / Hoses</field>
+    </record>
+    <record id="product_category_32" model="product.category">
+          <field name="code">BSHBER</field>
+      <field name="name">z-Bushing / Bearing</field>
+    </record>
+    <record id="product_category_33" model="product.category">
+      <field name="code">CARB</field>
+      <field name="name">z-Carburetor</field>
+    </record>
+    <record id="product_category_34" model="product.category">
+      <field name="code">CONROD</field>
+      <field name="name">z-Connecting Rod</field>
+    </record>
+    <record id="product_category_35" model="product.category">
+      <field name="code">CYL</field>
+      <field name="name">z-Cylinder</field>
+    </record>
+    <record id="product_category_36" model="product.category">
+      <field name="code">CONTROLS</field>
+      <field name="name">z-El Controls/Instr/Sensors</field>
+    </record>
+    <record id="product_category_37" model="product.category">
+      <field name="code">ELEC</field>
+      <field name="name">z-Electronic / Ignition</field>
+    </record>
+    <record id="product_category_38" model="product.category">
+      <field name="code">FPUMP</field>
+      <field name="name">z-Fuel Pump</field>
+    </record>
+    <record id="product_category_39" model="product.category">
+      <field name="code">GSKT</field>
+      <field name="name">z-Gasket</field>
+    </record>
+    <record id="product_category_40" model="product.category">
+      <field name="code">GEAR</field>
+      <field name="name">z-Gears</field>
+    </record>
+    <record id="product_category_41" model="product.category">
+      <field name="code">HEAT</field>
+      <field name="name">z-Heaters</field>
+    </record>
+    <record id="product_category_42" model="product.category">
+      <field name="code">INDCT</field>
+      <field name="name">z-Induction</field>
+    </record>
+    <record id="product_category_43" model="product.category">
+      <field name="code">INTKE</field>
+      <field name="name">z-Intake</field>
+    </record>
+    <record id="product_category_44" model="product.category">
+      <field name="code">LIPSL</field>
+      <field name="name">z-Lip Seal</field>
+    </record>
+    <record id="product_category_45" model="product.category">
+      <field name="code">NOASSIGN</field>
+      <field name="name">z-Not Assigned</field>
+    </record>
+    <record id="product_category_46" model="product.category">
+      <field name="code">OFILT</field>
+      <field name="name">z-Oil Filter</field>
+    </record>
+    <record id="product_category_47" model="product.category">
+      <field name="code">OPUMP</field>
+      <field name="name">z-Oil Pump / Relief</field>
+    </record>
+    <record id="product_category_48" model="product.category">
+        <field name="code">PNL</field>
+        <field name="name">z-Panel</field>
+    </record>
+    <record id="product_category_49" model="product.category">
+      <field name="code">PIST</field>
+      <field name="name">z-Piston / Rings</field>
+    </record>
+    <record id="product_category_50" model="product.category">
+      <field name="code">SENS</field>
+      <field name="name">z-Sensor</field>
+    </record>
+    <record id="product_category_51" model="product.category">
+      <field name="code">SHAFT</field>
+      <field name="name">z-Shafts</field>
+    </record>
+    <record id="product_category_52" model="product.category">
+      <field name="code">SLVE</field>
+      <field name="name">z-Sleeve / CR motor</field>
+    </record>
+    <record id="product_category_53" model="product.category">
+      <field name="code">SPARK</field>
+      <field name="name">z-Sparkplug</field>
+    </record>
+    <record id="product_category_54" model="product.category">
+      <field name="code">STRMO</field>
+      <field name="name">z-Starter Motor</field>
+    </record>
+    <record id="product_category_55" model="product.category">
+      <field name="code">ROCK</field>
+      <field name="name">z-Rockers / Lifters / Push Rods</field>
+    </record>
+  </data>
+
+
+
+
+
+
+</odoo>

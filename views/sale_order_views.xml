@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_email_template" model="mail.template">
+            <field name="name">Order Confirmation</field>
+            <field name="subject">Your Quotation Confirmation</field>
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+                <div>
+                Please approve the discount in below mentioned sales order.
+                <p>
+                    <a t-attf-href="web#id=sale_order.id&amp;model=sale.order&amp;view_type=form&amp;menu_id=menu_ids&amp;action=action_id&amp;active_id=sale_order.id&amp;disable_link=1"><button style="background-color: #008CBA; color: white; padding: 10px 20px; border-radius: 5px;">View Order</button></a>
+                      </p>
+                </div>
+                
+                <p>Best regards,</p>
+            ]]></field>
+        </record>
+    </data>
+
+
+    <data>
+
+        <record id="optional_prod_page_name" model="ir.ui.view">
+            <field name="name">optional_prod_page_name</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='product_id']" position="after">
+                <field name="quote_type" invisible="1"/>
+            </xpath>
+                
+            </field>
+        </record>
+
+
+        <record id="view_sale_order_form_inherit_for_cfr" model="ir.ui.view">
+            <field name="name">view_sale_order_form_inherit_for_cfr</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="string">Fuels</attribute>
+                <attribute name="attrs">{'invisible': [('quote_type', '!=', 'unit')]}</attribute>
+            </xpath>
+
+
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="mail_team_lead" invisible="1"/>
+                    <field name="send_to_manager_button" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="replace">
+                    <field name="payment_term_id2"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="quote_type" invisible="1"/>
+                </xpath>
+
+
+                <xpath expr="//button[@name='action_cancel']" position="before">
+                    <button name="mail_compute" type="object" string="Send Mail To Team Lead" class="btn-primary"
+                            attrs="{'invisible': ['|',('send_to_manager_button', '=', True),('state', '!=', 'waiting')]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_cancel']" position="before">
+                    <button name="button_send_to_manager" string="Approve" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state','!=','waiting'),('send_to_manager_button', '=', False)]}"/>
+
+                </xpath>
+
+                <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', '!=', 'waiting')]}</attribute>
+                </xpath>
+
+
+                <xpath expr="//group[@name='note_group']" position="replace">
+                    <group name="note_group" col="6">
+                        <group name="discount" colspan="2">
+                            <field name="discount_percent" force_save="1"
+                                   attrs="{'readonly': [('state','not in',['draft'])]}"/>
+
+                            <!-- <button name="action_confirm_button" type="object" string="Apply" class="btn-primary"
+                             attrs="{'invisible': [('state','=','sale')]}"/> -->
+
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2"
+                               name="sale_total">
+                            <field name="SubTotal_fuel" readonly="1" force_save="1"/>
+                            <field name="Products_amount" readonly="1" force_save="1"/>
+                            <field name="SubTotal" readonly="1" force_save="1"/>
+                            
+                            <field name="discount" readonly="1" force_save="1"/>
+                            <field name="amount_total" force_save="1"/>
+                        </group>
+                    </group>
+                </xpath>
+
+
+                <xpath expr="//header" position="inside">
+                    <field name="l10n_in_company_country_code" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="open_so_line" type="object" class="oe_stat_button" icon="fa-list-ol">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Sale Order</span>
+                            <span class="o_stat_text">Line</span>
+                        </div>
+                    </button>
+                </xpath>
+
+                <xpath expr="//group[@name='partner_details']" position="replace">
+                    <group name="partner_details">
+                        <!--                        <group string="Sold To" col="4" colspan="4">-->
+                        <field name="partner_id" widget="res_partner_many2one"
+                               context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': False}"
+                               options="{'always_reload': True}"/>
+                        <!--                        </group>-->
+                        <!--                        </group>-->
+                        <!--                        <group string="Ship To" col="4" colspan="4" groups="sale.group_delivery_invoice_address">-->
+                        <field name="partner_shipping_id"
+                               groups="sale.group_delivery_invoice_address"
+                               context="{'default_type':'delivery', 'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                               options="{'always_reload': True}"
+                               string="Customer"/>
+                        <!--                        </group>-->
+                        <!--                        <group string="Invoice To" col="4" colspan="4" groups="sale.group_delivery_invoice_address">-->
+                        <field name="partner_invoice_id" groups="sale.group_delivery_invoice_address"
+                               context="{'default_type':'invoice'}" options="{'always_reload': True}"/>
+                        <!--                        </group>-->
+                    </group>
+                </xpath>
+
+
+                <xpath expr="//group[@name='order_details']" position="attributes">
+                    <attribute name="string">Dates</attribute>
+
+                </xpath>
+
+                <xpath expr="//group[@name='order_details']/div/label[@for='date_order']" position="attributes">
+                    <attribute name="string">Order Date</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='show_update_pricelist']" position="before">
+                    <field name="need_by_date" string="Need By"/>
+                    <field name="lead_time"/>
+
+                    <field name="is_all_service" string="Service" invisible="1"/>
+                    <field name="delivery_set" string="Delivery" invisible="1"/>
+                    <field name="recompute_delivery_price" string="Re Delivery" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='preview_sale_order']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='sales_person']/field[@name='user_id']" position="replace"/>
+                <xpath expr="//group[@name='sales_person']/field[@name='team_id']" position="replace"/>
+                <xpath expr="//group[@name='sales_person']/field[@name='company_id']" position="replace"/>
+                <xpath expr="//group[@name='partner_details']" position="inside">
+                    <field name="rfq_number"/>
+                    <field name="po_date"/>
+                </xpath>
+                <xpath expr="//group[@name='partner_details']" position="attributes">
+                    <attribute name="string">Customer Details</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='order_details']" position="before">
+                    <group name="sales" string="Sales">
+                        <field name="user_id" widget="many2one_avatar_user"/>
+                        <field name="team_id" kanban_view_ref="489" options="{'no_create': True}"/>
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='other_information']/group[2]/group[@name='sale_reporting']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='customer_signature']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='other_information']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="CFR Details">
+                        <group>
+                            <group>
+                                <field name="open_order"/>
+                                <!--                                 <field name="is_company"/> -->
+                                <field name="customer_num"/>
+                                <field name="ship_to_num"/>
+                                <field name="fob"/>
+                                <field name="entry_person"
+                                       options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                <field name="ship_via_code"/>
+                                <field name="order_comment"/>
+                                <field name="order_type"/>
+                                <field name="ship_order_complete"/>
+                                <field name="web_order"/>
+                                <field name="linked"/>
+                                <field name="ic_po_num"/>
+                                <field name="ext_company" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                <field name="total_lines"/>
+                                <field name="total_invoiced"/>
+                                <field name="order_amt"/>
+                                <field name="proforma_inv_comment"/>
+                                <field name="sold_to_address"/>
+                                <field name="original_customer_po"/>
+                                <field name="ep_void_order"/>
+                                <field name="ep_terms_code"/>
+                                <field name="ep_discount_percent"/>
+                                <field name="ep_sales_rep_list"/>
+                                <field name="ep_ship_comment"/>
+                                <field name="ep_invoice_comment"/>
+                                <field name="ep_picklist_comment"/>
+                                <field name="ep_edi_order"/>
+                                <field name="ep_edi_ack"/>
+                                <field name="ep_web_entry_person"/>
+                                <field name="ep_drop_ship"/>
+
+
+                            </group>
+                            <group>
+
+                                <field name="ep_commercial_invoice"/>
+                                <field name="ep_ship_exprt_declartn"/>
+                                <field name="ep_cert_of_origin"/>
+                                <field name="ep_latter_of_instr"/>
+                                <field name="ep_change_date"/>
+                                <field name="ep_total_charges"/>
+                                <field name="ep_latter_of_instr"/>
+                                <field name="ep_request_date"/>
+                                <field name="ep_change_date" optional="hide"/>
+                                <field name="ep_total_charges" optional="hide"/>
+                                <field name="ep_order"/>
+                                <field name="ep_purchase_order"/>
+                                <field name="ep_customer"/>
+                                <!--                               <field name="ep_purchase_order"/>-->
+                                <field name="ep_bill_to_customer_entry"/>
+                                <field name="ep_one_time"/>
+                                <field name="ep_attn"/>
+                                <field name="ep_ship_to"/>
+                                <field name="ep_need_by"/>
+                                <field name="ep_ship_by"/>
+                                <field name="ep_ship_by_time"/>
+                                <field name="ep_Packing_slip"/>
+                                <field name="ep_reday_to_process"/>
+                                <field name="ep_ready_to_fullfill"/>
+                                <field name="ep_hold"/>
+                                <field name="ep_invoice"/>
+                                <field name="ep_charges"/>
+                                <field name="ep_discount"/>
+                                <field name="ep_misc"/>
+                                <field name="ep_tax"/>
+                                <field name="ep_rounding"/>
+                                <field name="ep_order_total"/>
+                                <field name="ep_counter_sale"/>
+                                <field name="ep_order_address"/>
+                                <field name="ep_order_phone"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Tracking" name="tracking">
+                        <group name="tracking" string="Tracking">
+                            <field name="opportunity_id"/>
+                            <field name="campaign_id"/>
+                            <field name="medium_id"/>
+                            <field name="origin"/>
+                            <field name="source_id"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']"
+                       position="after">
+                    <field name="open_line" optional="hide"/>
+                    <field name="order_line" optional="hide"/>
+                    <field name="line_type" optional="hide"/>
+                    <field name="part_num" optional="hide"/>
+                    <field name="revision_num" optional="hide"/>
+                    <field name="doc_unit_price" optional="hide"/>
+                    <field name="request_date" optional="hide"/>
+                    <field name="prod_code" optional="hide"/>
+                    <field name="order_comment" optional="hide"/>
+                    <field name="ship_comment" optional="hide"/>
+                    <field name="invoice_comment" optional="hide"/>
+                    <field name="pickList_comment" optional="hide"/>
+                    <field name="need_by_date" optional="hide"/>
+                    <field name="warranty" optional="hide"/>
+                    <field name="ship_line_complete" optional="hide"/>
+                    <field name="linked" optional="hide"/>
+                    <field name="ic_po_num" optional="hide"/>
+                    <field name="ic_po_line" optional="hide"/>
+                    <field name="price_list_code" optional="hide"/>
+                    <field name="doc_ord_based_price" optional="hide"/>
+                    <field name="ext_price_dtl" optional="hide"/>
+                    <field name="doc_ext_price_dtl" optional="hide"/>
+                    <field name="void_line" optional="hide"/>
+                    <field name="quote_num" optional="hide"/>
+                    <field name="quote_line" optional="hide"/>
+                    <field name="cust_num" optional="hide"/>
+                    <field name="contact_num" optional="hide"/>
+                    <field name="selling_quantity" optional="hide"/>
+                    <field name="mktg_campaing_id" optional="hide"/>
+                    <field name="mktg_evnt_seq" optional="hide"/>
+                    <field name="link_to_contract" optional="hide"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="cfr_sale_order_line_tree" model="ir.ui.view">
+            <field name="name">cfr_sale_order_line_tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Order Line" editable="top">
+                    <field name="sequence" string="Line"/>
+                    <field name="order_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                    <field name="order_partner_id"/>
+                    <field name="open_line"/>
+                    <field name="product_id" required="1"/>
+                    <field name="part_num"/>
+                    <field name="name"/>
+                    <field name="revision_num"/>
+                    <field name="product_uom_qty" string="Order Qty"/>
+                    <!-- <field name="salesman_id"/> -->
+                    <field name="product_uom_category_id"/>
+                    <field name="product_uom" string="Unit of Measure" groups="uom.group_uom"/>
+                    <field name="doc_unit_price" optional="hide"/>
+                    <field name="qty_delivered"/>
+                    <field name="qty_invoiced"/>
+                    <field name="qty_to_invoice"/>
+                    <field name="ic_po_line"/>
+                    <field name="request_date" optional="hide"/>
+                    <field name="prod_code" optional="hide"/>
+                    <field name="order_comment" optional="hide"/>
+                    <field name="ship_comment" optional="hide"/>
+                    <field name="invoice_comment" optional="hide"/>
+                    <field name="pickList_comment" optional="hide"/>
+                    <field name="need_by_date" optional="hide"/>
+                    <field name="warranty" optional="hide"/>
+                    <field name="ship_line_complete" optional="hide"/>
+                    <field name="linked" optional="hide"/>
+                    <field name="ic_po_num" optional="hide"/>
+                    <field name="price_list_code" optional="hide"/>
+                    <field name="doc_ord_based_price" optional="hide"/>
+                    <field name="ext_price_dtl" optional="hide"/>
+                    <field name="doc_ext_price_dtl" optional="hide"/>
+                    <field name="price_subtotal" sum="Total" widget="monetary"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="void_line" optional="hide"/>
+                    <field name="quote_num" optional="hide"/>
+                    <field name="quote_line" optional="hide"/>
+                    <field name="cust_num" optional="hide"/>
+                    <field name="contact_num" optional="hide"/>
+                    <field name="selling_quantity" optional="hide"/>
+                    <field name="mktg_campaing_id" optional="hide"/>
+                    <field name="mktg_evnt_seq" optional="hide"/>
+                    <field name="link_to_contract" optional="hide"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="cfr_open_sale_order_line_tree" model="ir.ui.view">
+            <field name="name">cfr_open_sale_order_line_tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Order Line" editable="top">
+                    <field name="sequence" string="Line"/>
+                    <field name="order_id" options="{'no_quick_create': True, 'no_create_edit' : True}" readonly="1"/>
+                    <field name="order_partner_id"/>
+                    <field name="open_line"/>
+                    <field name="product_id" required="1"/>
+                    <field name="part_num"/>
+                    <field name="name"/>
+                    <field name="revision_num"/>
+                    <field name="product_uom_qty" string="Order Qty"/>
+                    <!-- <field name="salesman_id"/> -->
+                    <field name="product_uom_category_id"/>
+                    <field name="doc_unit_price" optional="hide"/>
+                    <field name="product_uom" string="Unit of Measure" groups="uom.group_uom"/>
+                    <field name="qty_delivered"/>
+                    <field name="qty_invoiced"/>
+                    <field name="qty_to_invoice"/>
+                    <field name="ic_po_line"/>
+                    <field name="request_date" optional="hide"/>
+                    <field name="prod_code" optional="hide"/>
+                    <field name="order_comment" optional="hide"/>
+                    <field name="ship_comment" optional="hide"/>
+                    <field name="invoice_comment" optional="hide"/>
+                    <field name="pickList_comment" optional="hide"/>
+                    <field name="need_by_date" optional="hide"/>
+                    <field name="warranty" optional="hide"/>
+                    <field name="ship_line_complete" optional="hide"/>
+                    <field name="linked" optional="hide"/>
+                    <field name="ic_po_num" optional="hide"/>
+                    <field name="price_list_code" optional="hide"/>
+                    <field name="doc_ord_based_price" optional="hide"/>
+                    <field name="ext_price_dtl" optional="hide"/>
+                    <field name="doc_ext_price_dtl" optional="hide"/>
+                    <field name="price_subtotal" sum="Total" widget="monetary"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="void_line" optional="hide"/>
+                    <field name="quote_num" optional="hide"/>
+                    <field name="quote_line" optional="hide"/>
+                    <field name="cust_num" optional="hide"/>
+                    <field name="contact_num" optional="hide"/>
+                    <field name="selling_quantity" optional="hide"/>
+                    <field name="mktg_campaing_id" optional="hide"/>
+                    <field name="mktg_evnt_seq" optional="hide"/>
+                    <field name="link_to_contract" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- <record id="cfr_sale_order_line_action" model="ir.actions.act_window">
+            <field name="name">Sale Order Line</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+        </record> -->
+
+        <record id="cfr_sale_order_line_action" model="ir.actions.act_window">
+            <field name="name">Sale Order Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <!-- <field name="search_view_id" ref=""/> -->
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Sale Order Line
+                </p>
+                <p>
+                    Click the create button to enter information about the new Sale Order Line.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_cfr_sale_order_line_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="cfr_sale_order_line_tree"/>
+            <field name="act_window_id" ref="cfr_sale_order_line_action"/>
+        </record>
+
+
+        <menuitem
+                id="sale_order_line_menu"
+                parent="sale.sale_order_menu"
+                name="Sale Order Line"
+                action="cfr_sale_order_line_action"
+                sequence="2"/>
+
+    </data>
+</odoo>

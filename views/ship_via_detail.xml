@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crf_ship_tree" model="ir.ui.view">
+        <field name="name">crf.ship.tree</field>
+        <field name="model">cfr.shipvia</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Ship Via Detail"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_crf_ship_detail" model="ir.actions.act_window">
+        <field name="name">Ship Via Detail</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cfr.shipvia</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Ship Via Detais .......!
+            </p>
+        </field>
+    </record>
+
+
+<menuitem
+            id="menu_crf_2"
+            name="Ship Via Detail"
+            action="action_crf_ship_detail"
+            parent="contacts.res_partner_menu_config"
+            sequence="1"/>
+
+
+</odoo>
